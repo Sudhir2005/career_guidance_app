@@ -1,15 +1,20 @@
-const DashboardWidget = ({ title, value, icon, color }) => {
+import { Link } from "react-router-dom";
+
+export default function Login() {
   return (
-    <div
-      className={`flex items-center justify-between p-5 rounded-2xl shadow-md ${color}`}
-    >
-      <div>
-        <h4 className="text-sm text-gray-100">{title}</h4>
-        <p className="text-2xl font-bold text-white">{value}</p>
+    <div className="flex items-center justify-center min-h-screen bg-gray-50">
+      <div className="w-full max-w-md p-8 bg-white shadow-lg rounded-2xl">
+        <h2 className="mb-6 text-2xl font-bold text-gray-800">Login</h2>
+        <form className="space-y-4">
+          <input type="email" placeholder="Email" className="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-indigo-300" />
+          <input type="password" placeholder="Password" className="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-indigo-300" />
+          <button className="w-full px-4 py-2 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700">Login</button>
+        </form>
+        <p className="mt-4 text-sm text-gray-600">
+          Don't have an account?{" "}
+          <Link to="/register" className="text-indigo-600 hover:underline">Register</Link>
+        </p>
       </div>
-      <div className="text-3xl text-white">{icon}</div>
     </div>
   );
-};
-
-export default DashboardWidget;
+}

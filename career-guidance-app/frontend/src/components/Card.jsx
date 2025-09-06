@@ -1,6 +1,6 @@
 const Card = ({ title, description, icon, buttonText }) => {
   return (
-    <div className="p-6 transition bg-white shadow-md rounded-2xl hover:shadow-xl">
+    <div className="p-6 transition bg-white border border-gray-100 shadow-md rounded-2xl hover:shadow-xl">
       <div className="flex items-center space-x-4">
         {icon && <div className="text-3xl text-indigo-600">{icon}</div>}
         <h3 className="text-xl font-semibold text-gray-800">{title}</h3>

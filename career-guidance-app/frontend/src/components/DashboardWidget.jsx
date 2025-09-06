@@ -1,7 +1,7 @@
 const DashboardWidget = ({ title, value, icon, color }) => {
   return (
     <div
-      className={`flex items-center justify-between p-5 rounded-2xl shadow-md ${color}`}
+      className={`flex items-center justify-between p-6 rounded-2xl shadow-md hover:shadow-xl transition ${color}`}
     >
       <div>
         <h4 className="text-sm text-gray-100">{title}</h4>

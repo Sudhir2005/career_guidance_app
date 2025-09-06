@@ -1,28 +1,29 @@
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import Card from "../components/Card";
-
-const Opportunities = () => {
-  const opportunities = [
-    { title: "Internship - Web Dev", description: "Remote, 3 months, stipend ₹10k", buttonText: "Apply" },
-    { title: "Hackathon - AI Challenge", description: "National level, prizes up to ₹1L", buttonText: "Register" },
-    { title: "Workshop - Cloud Computing", description: "Free, Online", buttonText: "Join" },
-  ];
-
+export default function Opportunities() {
   return (
-    <>
-      <Navbar />
-      <div className="max-w-6xl px-6 py-12 mx-auto">
-        <h2 className="mb-8 text-3xl font-bold text-indigo-600">Opportunities</h2>
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-          {opportunities.map((op, i) => (
-            <Card key={i} {...op} />
-          ))}
+    <div className="p-6 mx-auto max-w-7xl">
+      <h2 className="mb-6 text-3xl font-bold text-gray-800">Opportunities</h2>
+
+      <div className="space-y-6">
+        <div className="p-6 transition bg-white shadow rounded-xl hover:shadow-md">
+          <h3 className="text-xl font-semibold">Internship - Web Development</h3>
+          <p className="mt-2 text-gray-500">
+            Work on real-world projects and enhance your coding skills.
+          </p>
+          <button className="px-4 py-2 mt-4 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700">
+            Apply Now
+          </button>
+        </div>
+
+        <div className="p-6 transition bg-white shadow rounded-xl hover:shadow-md">
+          <h3 className="text-xl font-semibold">Research Program - AI & ML</h3>
+          <p className="mt-2 text-gray-500">
+            Collaborate with experts and contribute to groundbreaking research.
+          </p>
+          <button className="px-4 py-2 mt-4 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700">
+            Apply Now
+          </button>
         </div>
       </div>
-      <Footer />
-    </>
+    </div>
   );
-};
-
-export default Opportunities;
+}

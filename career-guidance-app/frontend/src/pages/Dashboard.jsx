@@ -1,22 +1,38 @@
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
 import DashboardWidget from "../components/DashboardWidget";
+import { FaCheckCircle, FaBriefcase, FaFileAlt } from "react-icons/fa";
 
-const Dashboard = () => {
+export default function Dashboard() {
   return (
-    <>
-      <Navbar />
-      <div className="max-w-6xl px-6 py-12 mx-auto">
-        <h2 className="mb-8 text-3xl font-bold text-indigo-600">Your Dashboard</h2>
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-          <DashboardWidget title="Completed Tests" value="5" icon="📊" color="bg-gradient-to-r from-indigo-500 to-purple-600" />
-          <DashboardWidget title="Saved Careers" value="3" icon="💼" color="bg-gradient-to-r from-green-500 to-teal-500" />
-          <DashboardWidget title="Resume Score" value="85%" icon="📄" color="bg-gradient-to-r from-yellow-500 to-orange-500" />
-        </div>
-      </div>
-      <Footer />
-    </>
-  );
-};
+    <div className="p-6 mx-auto max-w-7xl">
+      <h2 className="mb-6 text-3xl font-bold text-gray-800">Your Dashboard</h2>
 
-export default Dashboard;
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+        <DashboardWidget
+          title="Completed Tests"
+          value="5"
+          icon={<FaCheckCircle />}
+          color="bg-gradient-to-r from-green-400 to-green-600"
+        />
+        <DashboardWidget
+          title="Saved Careers"
+          value="3"
+          icon={<FaBriefcase />}
+          color="bg-gradient-to-r from-blue-400 to-blue-600"
+        />
+        <DashboardWidget
+          title="Resume Score"
+          value="85%"
+          icon={<FaFileAlt />}
+          color="bg-gradient-to-r from-purple-400 to-purple-600"
+        />
+      </div>
+
+      <div className="p-6 mt-10 bg-white shadow-lg rounded-2xl">
+        <h3 className="text-xl font-semibold text-gray-700">AI Insights</h3>
+        <p className="mt-2 text-gray-500">
+          This section will display personalized AI recommendations for your career journey.
+        </p>
+      </div>
+    </div>
+  );
+}
