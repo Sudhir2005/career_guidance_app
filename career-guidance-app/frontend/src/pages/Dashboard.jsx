@@ -4,7 +4,9 @@ import { FaCheckCircle, FaBriefcase, FaFileAlt } from "react-icons/fa";
 export default function Dashboard() {
   return (
     <div className="p-6 mx-auto max-w-7xl">
-      <h2 className="mb-6 text-3xl font-bold text-gray-800">Your Dashboard</h2>
+      <h2 className="my-10 text-3xl font-bold text-center text-gray-800">
+        Your Dashboard
+      </h2>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         <DashboardWidget
@@ -30,7 +32,8 @@ export default function Dashboard() {
       <div className="p-6 mt-10 bg-white shadow-lg rounded-2xl">
         <h3 className="text-xl font-semibold text-gray-700">AI Insights</h3>
         <p className="mt-2 text-gray-500">
-          This section will display personalized AI recommendations for your career journey.
+          This section will display personalized AI recommendations for your
+          career journey.
         </p>
       </div>
     </div>
