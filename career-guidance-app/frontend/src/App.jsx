@@ -1,7 +1,7 @@
 // App.jsx
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
+
 
 // Pages
 import Login from "./pages/Login";
@@ -43,8 +43,7 @@ function App() {
         </Routes>
       </main>
 
-      {/* Footer at the bottom */}
-      <Footer />
+      
     </div>
   );
 }

@@ -1,25 +1,43 @@
-import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Card from "../components/Card";
 
 const CareerExplorer = () => {
   const careers = [
-    { title: "Software Engineer", description: "Build scalable apps.", buttonText: "Explore" },
-    { title: "Data Scientist", description: "Analyze and predict data trends.", buttonText: "Explore" },
-    { title: "Product Manager", description: "Lead products to success.", buttonText: "Explore" },
+    {
+      title: "Software Engineer",
+      description: "Design and build scalable applications with cutting-edge technologies.",
+      buttonText: "Explore",
+    },
+    {
+      title: "Data Scientist",
+      description: "Analyze complex datasets and create predictive AI-driven models.",
+      buttonText: "Explore",
+    },
+    {
+      title: "Product Manager",
+      description: "Lead cross-functional teams to deliver impactful products.",
+      buttonText: "Explore",
+    },
   ];
 
   return (
     <>
-      <Navbar />
-      <div className="max-w-6xl px-6 py-12 mx-auto">
-        <h2 className="mb-8 text-3xl font-bold text-indigo-600">Career Explorer</h2>
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-          {careers.map((c, i) => (
-            <Card key={i} {...c} />
+      {/* Page Content */}
+      <main className="max-w-6xl px-6 py-12 mx-auto">
+        {/* Page Heading */}
+        <h1 className="mb-10 text-4xl font-extrabold tracking-tight text-transparent bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 bg-clip-text">
+          Career Explorer
+        </h1>
+
+        {/* Careers Grid */}
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+          {careers.map((career, i) => (
+            <Card key={i} {...career} />
           ))}
         </div>
-      </div>
+      </main>
+
+      {/* Global Footer */}
       <Footer />
     </>
   );

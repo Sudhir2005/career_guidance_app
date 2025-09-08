@@ -2,6 +2,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.cdnfonts.com/css/harry-potter');
+
 
 
 body {
@@ -75,4 +77,14 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+.gryffindor-logo {
+  font-family: 'Harry Potter', serif;
+  background: linear-gradient(to right, #7f0909, #d3a625); /* Gryffindor Scarlet → Gold */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.4);
 }
