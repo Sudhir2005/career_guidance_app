@@ -36,9 +36,6 @@ const CareerExplorer = () => {
           ))}
         </div>
       </main>
-
-      {/* Global Footer */}
-      <Footer />
     </>
   );
 };

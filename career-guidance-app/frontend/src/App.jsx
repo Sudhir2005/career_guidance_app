@@ -1,7 +1,5 @@
-// App.jsx
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
-
 
 // Pages
 import Login from "./pages/Login";
@@ -15,14 +13,23 @@ import ResumeBuilder from "./pages/ResumeBuilder";
 import NotFound from "./pages/NotFound";
 
 function App() {
+  const location = useLocation();
+
+  // Routes where Navbar should NOT appear
+  const authRoutes = ["/login", "/register"];
+
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
-      {/* Navbar at the top */}
-      <Navbar />
+      {/* Conditionally render Navbar */}
+      {!authRoutes.includes(location.pathname) && <Navbar />}
 
       {/* Main content area */}
       <main className="flex-grow p-6">
         <Routes>
+          {/* Authentication */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+
           {/* Default Route */}
           <Route path="/" element={<Dashboard />} />
 
@@ -34,16 +41,10 @@ function App() {
           <Route path="/tests" element={<PsychometricTest />} />
           <Route path="/resume" element={<ResumeBuilder />} />
 
-          {/* Authentication */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-
           {/* 404 Page */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
-
-      
     </div>
   );
 }

@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   FaTachometerAlt,
   FaUserGraduate,
@@ -8,14 +8,14 @@ import {
   FaBriefcase,
   FaUserCircle,
   FaBars,
-  FaTimes,
-  FaCog,
   FaSignOutAlt,
 } from "react-icons/fa";
 
 export default function Navbar() {
   const location = useLocation();
+  const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const sidebarRef = useRef(null);
 
   const navItems = [
     { to: "/dashboard", label: "Dashboard", icon: <FaTachometerAlt /> },
@@ -26,89 +26,108 @@ export default function Navbar() {
     { to: "/profile-setup", label: "Profile", icon: <FaUserCircle /> },
   ];
 
+  const handleLogout = () => {
+    navigate("/login");
+  };
+
+  // Close sidebar if clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        sidebarOpen &&
+        sidebarRef.current &&
+        !sidebarRef.current.contains(event.target)
+      ) {
+        setSidebarOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [sidebarOpen]);
+
   return (
     <>
-      {/* Top Bar: App Name + Sidebar Button */}
-      <div className="flex items-center justify-between px-6 pt-4 mb-3">
-        {/* App name shown only once */}
-        <h1 className="text-5xl gryffindor-logo drop-shadow-lg">
-  Gryffindor
-</h1>
+      {/* Top Navbar */}
+      <div className="sticky top-0 z-40 flex items-center justify-between px-6 py-4 mb-4 shadow-md bg-white/30 backdrop-blur-md rounded-b-2xl">
+        <h1 className="text-4xl font-extrabold tracking-wide text-transparent gryffindor-logo bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 bg-clip-text drop-shadow-lg">
+          Gryffindor
+        </h1>
 
-
-        {/* Minimal Sidebar Toggle Button */}
+        {/* Sidebar Toggle */}
         <button
-          className="p-2 text-gray-800 transition-transform duration-300 rounded-full shadow-md bg-white/20 backdrop-blur-md hover:text-indigo-600 hover:scale-110 md:hidden"
+          className="p-2 text-gray-800 transition-transform duration-300 rounded-full shadow-lg bg-white/70 hover:text-indigo-600 hover:scale-110 md:hidden"
           onClick={() => setSidebarOpen(!sidebarOpen)}
         >
-          {sidebarOpen ? <FaTimes size={22} /> : <FaBars size={22} />}
+          <FaBars size={20} />
         </button>
       </div>
 
+      {/* Overlay (click outside to close) */}
+      {sidebarOpen && (
+        <div className="fixed inset-0 z-30 bg-black/20 md:hidden"></div>
+      )}
+
       {/* Sidebar */}
       <aside
-        className={`fixed top-0 left-0 h-full w-64 bg-gradient-to-b from-gray-950 via-gray-900 to-gray-800 text-white shadow-2xl transform transition-transform duration-300 z-40 ${
+        ref={sidebarRef}
+        className={`fixed top-0 left-0 h-full w-64 bg-gradient-to-b from-gray-950 via-gray-900 to-gray-800 text-white shadow-2xl transform transition-transform duration-300 z-50 md:translate-x-0 ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
-        } md:translate-x-0`}
+        }`}
       >
-        {/* Profile Section */}
-        <div className="flex flex-col items-center py-8 border-b border-gray-700 shadow-lg bg-gradient-to-r from-purple-900 to-indigo-900">
+        {/* Profile */}
+        <div className="flex flex-col items-center py-8 border-b border-gray-700 shadow-md bg-gradient-to-r from-purple-800 to-indigo-900 rounded-br-3xl">
           <img
             src="https://via.placeholder.com/90"
             alt="Profile"
-            className="w-24 h-24 border-4 border-pink-500 rounded-full shadow-[0_0_15px_rgba(236,72,153,0.8)]"
+            className="w-24 h-24 border-4 border-pink-500 rounded-full shadow-lg"
           />
-          <h2 className="mt-3 text-xl font-extrabold tracking-wide text-white drop-shadow-lg">
-            John Doe
-          </h2>
+          <h2 className="mt-3 text-lg font-bold tracking-wide">John Doe</h2>
           <p className="text-sm italic text-gray-300">Software Engineer</p>
         </div>
 
         {/* Nav Links */}
-        <div className="flex flex-col px-4 mt-6 space-y-4">
+        <div className="flex flex-col px-5 mt-6 space-y-3">
           {navItems.map((item) => (
             <Link
               key={item.to}
               to={item.to}
-              className={`flex items-center gap-3 p-3 rounded-lg transition-all duration-300 transform hover:scale-[1.02] ${
+              onClick={() => setSidebarOpen(false)} // close sidebar on click
+              className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-300 ${
                 location.pathname === item.to
-                  ? "bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white font-semibold shadow-lg"
-                  : "hover:bg-gradient-to-r hover:from-gray-800 hover:to-gray-700"
+                  ? "bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white font-semibold shadow-md"
+                  : "hover:bg-white/10 hover:shadow-lg"
               }`}
             >
-              <span className="text-lg">{item.icon}</span>
-              <span>{item.label}</span>
+              <span className="text-base">{item.icon}</span>
+              <span className="text-sm">{item.label}</span>
             </Link>
           ))}
         </div>
 
-        {/* Settings + Logout */}
-        <div className="absolute w-full px-4 bottom-6">
-          <Link
-            to="/settings"
-            className="flex items-center gap-3 p-3 transition rounded-lg hover:bg-gradient-to-r hover:from-gray-800 hover:to-gray-700"
+        {/* Logout */}
+        <div className="absolute w-full px-5 bottom-6">
+          <button
+            onClick={handleLogout}
+            className="flex items-center w-full gap-3 px-4 py-3 text-left transition rounded-lg hover:bg-white/10"
           >
-            <FaCog /> Settings
-          </Link>
-          <button className="flex items-center w-full gap-3 p-3 text-left transition rounded-lg hover:bg-gradient-to-r hover:from-gray-800 hover:to-gray-700">
-            <FaSignOutAlt /> Logout
+            <FaSignOutAlt /> <span className="text-sm">Logout</span>
           </button>
         </div>
       </aside>
 
       {/* Mobile Bottom Navbar */}
-      <nav className="fixed bottom-0 left-0 right-0 z-50 flex items-center justify-around py-3 text-white shadow-[0_-4px_20px_rgba(0,0,0,0.5)] bg-gradient-to-r from-pink-600 via-purple-700 to-indigo-700 backdrop-blur-md rounded-t-2xl md:hidden">
+      <nav className="fixed bottom-0 left-0 right-0 z-40 flex items-center justify-around py-3 text-gray-100 shadow-lg bg-gradient-to-r from-pink-600 via-purple-700 to-indigo-700 backdrop-blur-md rounded-t-2xl md:hidden">
         {navItems.map((item) => (
           <Link
             key={item.to}
             to={item.to}
-            className={`flex flex-col items-center text-xs transition-all duration-300 ${
+            className={`flex flex-col items-center text-xs px-3 py-2 rounded-lg transition-all duration-300 ${
               location.pathname === item.to
-                ? "text-yellow-300 scale-110 font-semibold drop-shadow-lg"
+                ? "bg-white/20 text-yellow-300 font-semibold scale-110 shadow-md"
                 : "hover:text-pink-300"
             }`}
           >
-            <span className="text-lg">{item.icon}</span>
+            <span className="text-base">{item.icon}</span>
             <span className="mt-1">{item.label}</span>
           </Link>
         ))}
