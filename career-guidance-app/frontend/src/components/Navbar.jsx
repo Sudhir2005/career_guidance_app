@@ -116,7 +116,7 @@ export default function Navbar() {
       </aside>
 
       {/* Mobile Bottom Navbar */}
-      <nav className="fixed bottom-0 left-0 right-0 z-40 flex items-center justify-around py-3 text-white shadow-lg bg-gradient-to-r from-pink-600 via-purple-700 to-indigo-700 backdrop-blur-md rounded-t-2xl md:hidden">
+      <nav className="fixed bottom-0 left-0 right-0 z-10 flex items-center justify-around py-3 text-white shadow-lg bg-gradient-to-r from-pink-600 via-purple-700 to-indigo-700 backdrop-blur-md rounded-t-2xl md:hidden">
         {navItems.map((item) => (
           <Link
             key={item.to}
