@@ -77,7 +77,7 @@ export default function Navbar() {
         {/* Profile */}
         <div className="flex flex-col items-center py-8 border-b border-gray-700 shadow-md bg-gradient-to-r from-purple-800 to-indigo-900 rounded-br-3xl">
           <img
-            src="https://via.placeholder.com/90"
+            src="https://static.vecteezy.com/system/resources/thumbnails/027/951/137/small_2x/stylish-spectacles-guy-3d-avatar-character-illustrations-png.png"
             alt="Profile"
             className="w-24 h-24 border-4 border-pink-500 rounded-full shadow-lg"
           />
@@ -91,7 +91,7 @@ export default function Navbar() {
             <Link
               key={item.to}
               to={item.to}
-              onClick={() => setSidebarOpen(false)} // close sidebar on click
+              onClick={() => setSidebarOpen(false)}
               className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-300 ${
                 location.pathname === item.to
                   ? "bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white font-semibold shadow-md"
@@ -116,15 +116,16 @@ export default function Navbar() {
       </aside>
 
       {/* Mobile Bottom Navbar */}
-      <nav className="fixed bottom-0 left-0 right-0 z-40 flex items-center justify-around py-3 text-gray-100 shadow-lg bg-gradient-to-r from-pink-600 via-purple-700 to-indigo-700 backdrop-blur-md rounded-t-2xl md:hidden">
+      <nav className="fixed bottom-0 left-0 right-0 z-40 flex items-center justify-around py-3 text-white shadow-lg bg-gradient-to-r from-pink-600 via-purple-700 to-indigo-700 backdrop-blur-md rounded-t-2xl md:hidden">
         {navItems.map((item) => (
           <Link
             key={item.to}
             to={item.to}
+            onClick={() => setSidebarOpen(false)}
             className={`flex flex-col items-center text-xs px-3 py-2 rounded-lg transition-all duration-300 ${
               location.pathname === item.to
-                ? "bg-white/20 text-yellow-300 font-semibold scale-110 shadow-md"
-                : "hover:text-pink-300"
+                ? "bg-white/20 text-white font-semibold scale-110 shadow-md"
+                : "text-white hover:text-gray-300"
             }`}
           >
             <span className="text-base">{item.icon}</span>
