@@ -11,6 +11,7 @@ import ProfileSetup from "./pages/ProfileSetup";
 import PsychometricTest from "./pages/PsychometricTest";
 import ResumeBuilder from "./pages/ResumeBuilder";
 import NotFound from "./pages/NotFound";
+import ExtraCurriculars from "./pages/ExtraCurriculars";
 
 function App() {
   const location = useLocation();
@@ -40,7 +41,7 @@ function App() {
           <Route path="/profile-setup" element={<ProfileSetup />} />
           <Route path="/tests" element={<PsychometricTest />} />
           <Route path="/resume" element={<ResumeBuilder />} />
-
+          <Route path="/extracurriculars" element={<ExtraCurriculars />} />
           {/* 404 Page */}
           <Route path="*" element={<NotFound />} />
         </Routes>

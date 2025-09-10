@@ -1,4 +1,5 @@
-import { FaRocket, FaUserGraduate, FaBriefcase, FaFileAlt, FaRobot } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { FaRocket, FaUserGraduate, FaBriefcase, FaRobot, FaRunning } from "react-icons/fa";
 
 export default function Dashboard() {
   return (
@@ -6,17 +7,13 @@ export default function Dashboard() {
       {/* Scrollable content */}
       <div className="flex-1 p-6 overflow-y-auto">
         {/* Greeting */}
-        <div className="mb-6">
-          <h2 className="text-xl font-semibold text-gray-800">
-            Hello John,
-          </h2>
-          <p className="text-sm text-gray-500">
-            How can I assist you today?
-          </p>
+        <div className="mb-8">
+          <h2 className="text-xl font-semibold text-gray-800">Hello John,</h2>
+          <p className="text-sm text-gray-500">How can I assist you today?</p>
         </div>
 
         {/* Ask AI Section */}
-        <div className="p-4 mb-6 bg-white shadow-md rounded-2xl">
+        <div className="p-4 mb-8 bg-white shadow-md rounded-2xl">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-semibold text-gray-700">Ask AI</h3>
           </div>
@@ -31,7 +28,7 @@ export default function Dashboard() {
         </div>
 
         {/* Illustration */}
-        <div className="flex justify-center mb-6">
+        <div className="flex justify-center mb-8">
           <img
             src="https://cdni.iconscout.com/illustration/premium/thumb/data-analysis-illustration-download-in-svg-png-gif-file-formats--analyzing-growth-report-marketing-pack-business-illustrations-4300601.png"
             alt="Dashboard Illustration"
@@ -40,8 +37,9 @@ export default function Dashboard() {
         </div>
 
         {/* Cards Section */}
-        <div className="space-y-4">
-          <div className="flex items-center p-4 bg-white shadow-md rounded-2xl">
+        <div>
+          {/* Explore */}
+          <div className="flex items-center p-4 mb-5 bg-white shadow-md rounded-2xl">
             <div className="p-3 mr-4 bg-red-100 rounded-full">
               <FaRocket className="text-xl text-red-500" />
             </div>
@@ -51,17 +49,38 @@ export default function Dashboard() {
             </div>
           </div>
 
-          <div className="flex items-center p-4 bg-white shadow-md rounded-2xl">
+          {/* Psychometric Test */}
+          <div className="flex items-center p-4 mb-5 bg-white shadow-md rounded-2xl">
             <div className="p-3 mr-4 bg-red-100 rounded-full">
               <FaUserGraduate className="text-xl text-red-500" />
             </div>
             <div>
-              <h4 className="font-semibold text-gray-800">Psychometric Test Page</h4>
+              <h4 className="font-semibold text-gray-800">
+                Psychometric Test Page
+              </h4>
               <p className="text-sm text-gray-500">Know about you</p>
             </div>
           </div>
 
-          <div className="flex items-center p-4 bg-white shadow-md rounded-2xl">
+          {/* Extra Curricular Activities */}
+          <Link to="/extracurriculars">
+            <div className="flex items-center p-4 mb-5 bg-white shadow-md rounded-2xl hover:shadow-lg transition">
+              <div className="p-3 mr-4 bg-red-100 rounded-full">
+                <FaRunning className="text-xl text-red-500" />
+              </div>
+              <div>
+                <h4 className="font-semibold text-gray-800">
+                  Extra Curricular Activities
+                </h4>
+                <p className="text-sm text-gray-500 font-normal">
+                  Interests beyond academics
+                </p>
+              </div>
+            </div>
+          </Link>
+
+          {/* Portfolio */}
+          <div className="flex items-center p-4 mb-5 bg-white shadow-md rounded-2xl">
             <div className="p-3 mr-4 bg-red-100 rounded-full">
               <FaBriefcase className="text-xl text-red-500" />
             </div>
@@ -71,6 +90,7 @@ export default function Dashboard() {
             </div>
           </div>
 
+          {/* Document AI */}
           <div className="flex items-center p-4 bg-white shadow-md rounded-2xl">
             <div className="p-3 mr-4 bg-red-100 rounded-full">
               <FaRobot className="text-xl text-red-500" />
@@ -82,8 +102,6 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
-
-      {/* Footer (already from Navbar/Footer component, so no duplication here) */}
     </div>
   );
 }
