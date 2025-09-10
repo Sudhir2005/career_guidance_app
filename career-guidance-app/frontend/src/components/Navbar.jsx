@@ -50,7 +50,7 @@ export default function Navbar() {
       {/* Top Navbar */}
       <div className="sticky top-0 z-40 flex items-center justify-between px-6 py-4 mb-4 shadow-md bg-white/30 backdrop-blur-md rounded-b-2xl">
         <h1 className="text-4xl font-extrabold tracking-wide text-transparent gryffindor-logo bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 bg-clip-text drop-shadow-lg">
-          Gryffindor
+          Career Guide
         </h1>
 
         {/* Sidebar Toggle */}
