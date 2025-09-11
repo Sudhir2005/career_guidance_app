@@ -47,7 +47,7 @@ export default function Aichat() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Type your message..."
-            className="flex-1 p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 mb-40 "
+            className="flex-1 p-3 border border-purple-500 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 mb-40 text-white"
           />
           <button
             onClick={handleSend}
