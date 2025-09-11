@@ -13,6 +13,7 @@ import ResumeBuilder from "./pages/ResumeBuilder";
 import NotFound from "./pages/NotFound";
 import ExtraCurriculars from "./pages/ExtraCurriculars";
 import Aichat from "./pages/Aichat";
+import EducationLevelSelector from "./pages/EducationLevelSelector";
 
 function App() {
   const location = useLocation();
@@ -33,7 +34,7 @@ function App() {
           <Route path="/register" element={<Register />} />
 
           {/* Default Route */}
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/" element={<Login />} />
 
           {/* Core Routes */}
           <Route path="/dashboard" element={<Dashboard />} />
@@ -44,6 +45,7 @@ function App() {
           <Route path="/resume" element={<ResumeBuilder />} />
           <Route path="/extracurriculars" element={<ExtraCurriculars />} />
           <Route path="/aichat" element={<Aichat />} />
+          <Route path="/education" element={<EducationLevelSelector />} />
           {/* 404 Page */}
           <Route path="*" element={<NotFound />} />
         </Routes>

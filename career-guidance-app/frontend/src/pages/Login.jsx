@@ -1,9 +1,7 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 
-// Put your GIF in the public folder: /public/magic-loader.gif
 export default function Login() {
-  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -12,16 +10,15 @@ export default function Login() {
     e.preventDefault();
     setLoading(true);
 
+    // Simulate loading effect only
     setTimeout(() => {
       setLoading(false);
-      navigate("/dashboard");
-    }, 2000); // 2s magic effect
+    }, 2000);
   };
 
   return (
     <div className="relative flex items-center justify-center min-h-screen bg-gradient-to-tr from-purple-700 via-pink-600 to-indigo-500">
-      
-      {/* Loader Overlay with GIF */}
+      {/* Loader Overlay */}
       {loading && (
         <div className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-black/60">
           <img
@@ -69,17 +66,23 @@ export default function Login() {
             />
           </div>
 
-          <button
-            type="submit"
-            className="w-full py-3 font-bold text-white transition-transform duration-300 shadow-lg bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 rounded-xl hover:scale-105"
-          >
-            Login
-          </button>
+          {/* Link to Education Page */}
+          <Link to="/education">
+            <button
+              type="submit"
+              className="w-full py-3 font-bold text-white transition-transform duration-300 shadow-lg bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 rounded-xl hover:scale-105"
+            >
+              Login
+            </button>
+          </Link>
         </form>
 
         <p className="mt-6 text-center text-white/80">
           Don't have an account?{" "}
-          <Link to="/register" className="font-semibold text-white underline transition hover:text-yellow-300">
+          <Link
+            to="/register"
+            className="font-semibold text-white underline transition hover:text-yellow-300"
+          >
             Register
           </Link>
         </p>
