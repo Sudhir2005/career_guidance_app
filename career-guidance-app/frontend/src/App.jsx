@@ -12,6 +12,7 @@ import PsychometricTest from "./pages/PsychometricTest";
 import ResumeBuilder from "./pages/ResumeBuilder";
 import NotFound from "./pages/NotFound";
 import ExtraCurriculars from "./pages/ExtraCurriculars";
+import Aichat from "./pages/Aichat";
 
 function App() {
   const location = useLocation();
@@ -42,6 +43,7 @@ function App() {
           <Route path="/tests" element={<PsychometricTest />} />
           <Route path="/resume" element={<ResumeBuilder />} />
           <Route path="/extracurriculars" element={<ExtraCurriculars />} />
+          <Route path="/aichat" element={<Aichat />} />
           {/* 404 Page */}
           <Route path="*" element={<NotFound />} />
         </Routes>
