@@ -27,7 +27,7 @@ export default function Aichat() {
       </div>
 
       {/* Buttons Section */}
-      <div className="grid grid-cols-1 gap-0 px-0 mb-20">
+      <div className="grid grid-cols-1 gap-0 px-0 mb-20 ">
         <button className="flex items-center justify-center gap-2 px-4 py-3 text-blue-600 border border-blue-500 rounded-xl hover:bg-blue-50 transition">
           <FaFileAlt /> Summarize
         </button>

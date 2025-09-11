@@ -7,7 +7,7 @@ export default function Dashboard() {
       {/* Scrollable content */}
       <div className="flex-1 p-6 overflow-y-auto">
         {/* Greeting */}
-        <div className="mb-6">
+        <div className="mt-[-30px]">
           <h2 className="text-xl font-semibold text-gray-800">
             Hello John,
           </h2>
@@ -17,11 +17,11 @@ export default function Dashboard() {
         </div>
 
         {/* Ask AI Section */}
-        <div className="p-4 mb-6 bg-white shadow-md rounded-2xl">
+        <div className="p-4 mb-6 bg-white shadow-md rounded-2xl mt-[-5px]">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-semibold text-gray-700">Ask AI</h3>
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-4 mb-6">
             <Link
               to="/gallery"
               className="py-3 text-center text-white transition bg-red-500 rounded-xl hover:bg-red-600"
@@ -38,17 +38,18 @@ export default function Dashboard() {
         </div>
 
         {/* Illustration */}
-        <div className="flex justify-center mb-6">
+        <div className="flex justify-center ">
           <img
-            src="https://cdni.iconscout.com/illustration/premium/thumb/data-analysis-illustration-download-in-svg-png-gif-file-formats--analyzing-growth-report-marketing-pack-business-illustrations-4300601.png"
-            alt="Dashboard Illustration"
+            src=""
+            alt=""
             className="w-56"
           />
         </div>
 
         {/* Cards Section */}
-        <div className="space-y-4">
-          <div className="flex items-center p-4 bg-white shadow-md rounded-2xl">
+        <div className="mt-[-20px]">
+        <div className="space-y-4 ">
+          <div className="flex items-center p-4 bg-white shadow-md rounded-2xl  ">
             <div className="p-3 mr-4 bg-red-100 rounded-full">
               <FaRocket className="text-xl text-red-500" />
             </div>
@@ -105,6 +106,7 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }
