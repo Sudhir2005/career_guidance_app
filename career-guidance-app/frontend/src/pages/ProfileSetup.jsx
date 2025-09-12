@@ -142,9 +142,14 @@ export default function ProfileSetup() {
                 className="block w-full text-sm text-gray-700"
               />
               {imagePreview && (
-                <button type="button" onClick={handleRemoveImage} className="px-3 py-1 text-sm border rounded">
-                  Remove
-                </button>
+                <button
+  type="button"
+  onClick={handleRemoveImage}
+  className="px-3 py-1 text-sm border rounded bg-white text-gray-700 hover:bg-white hover:text-black"
+>
+  Remove
+</button>
+
               )}
             </div>
             {errors.image && <p className="mt-1 text-sm text-red-600">{errors.image}</p>}
@@ -245,9 +250,14 @@ export default function ProfileSetup() {
         {errors.submit && <p className="text-sm text-red-600">{errors.submit}</p>}
 
         <div className="flex justify-end gap-3">
-          <button type="button" onClick={handleReset} className="px-5 py-2 border rounded-lg hover:bg-gray-50">
-            Reset
-          </button>
+          <button
+  type="button"
+  onClick={handleReset}
+  className="px-5 py-2 border rounded-lg bg-white text-gray-700 hover:bg-white hover:text-black"
+>
+  Reset
+</button>
+
 
           <button type="submit" className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
             Save Profile
