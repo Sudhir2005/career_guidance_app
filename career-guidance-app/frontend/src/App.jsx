@@ -34,7 +34,7 @@ function App() {
           <Route path="/register" element={<Register />} />
 
           {/* Default Route */}
-          <Route path="/" element={<Login />} />
+          <Route path="/" element={<Dashboard />} />
 
           {/* Core Routes */}
           <Route path="/dashboard" element={<Dashboard />} />
