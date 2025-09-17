@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import axios from "axios";
 
-// Place your GIF in /public/magic-loader.gif
 export default function Register() {
   const navigate = useNavigate();
   const [name, setName] = useState("");
@@ -9,25 +9,34 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
     setLoading(true);
 
-    // Simulate registration/loading
-    setTimeout(() => {
+    try {
+      const { data } = await axios.post("http://localhost:5000/api/auth/register", {
+        name,
+        email,
+        password,
+      });
+
+      console.log("User Registered:", data);
+      localStorage.setItem("token", data.token); // save JWT
       setLoading(false);
-      navigate("/dashboard");
-    }, 2000); // 2s magical effect
+      navigate("/dashboard"); // redirect after success
+    } catch (err) {
+      console.error(err.response?.data || err.message);
+      alert(err.response?.data?.error || "Registration failed");
+      setLoading(false);
+    }
   };
 
   return (
     <div className="relative flex items-center justify-center min-h-screen bg-gradient-to-tr from-purple-700 via-pink-600 to-indigo-500">
-      
-      {/* Loader Overlay with GIF */}
       {loading && (
         <div className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-black/60">
           <img
-            src="https://media2.giphy.com/media/v1.Y2lkPTZjMDliOTUyNzJnemhmMmJoZjhqeG1tdGo2am0zZnEwMGNxcjk0dHByNTN2djIzdyZlcD12MV9zdGlja2Vyc19zZWFyY2gmY3Q9cw/yyqOUPn5souNBSHUnU/giphy.gif"
+            src="/magic-loader.gif"
             alt="Loading..."
             className="w-32 h-32 animate-bounce"
           />
@@ -37,7 +46,6 @@ export default function Register() {
         </div>
       )}
 
-      {/* Register Card */}
       <div className="relative z-10 w-full max-w-md p-10 border shadow-2xl bg-white/20 backdrop-blur-md border-white/30 rounded-3xl">
         <h2 className="mb-4 text-3xl font-extrabold text-center text-white drop-shadow-lg">
           Create Account

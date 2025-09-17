@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
 
 // Pages
@@ -33,8 +33,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 
-          {/* Default Route */}
-          <Route path="/" element={<Dashboard />} />
+          {/* Redirect root to login */}
+          <Route path="/" element={<Navigate to="/login" replace />} />
 
           {/* Core Routes */}
           <Route path="/dashboard" element={<Dashboard />} />
@@ -46,6 +46,7 @@ function App() {
           <Route path="/extracurriculars" element={<ExtraCurriculars />} />
           <Route path="/aichat" element={<Aichat />} />
           <Route path="/education" element={<EducationLevelSelector />} />
+
           {/* 404 Page */}
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -1,50 +1,59 @@
-import { useState } from "react";
-
-const questions = [
-  {
-    id: 1,
-    question: "Do you enjoy solving logical problems?",
-    options: ["Yes", "No"],
-  },
-  {
-    id: 2,
-    question: "Do you prefer working in a team or individually?",
-    options: ["Team", "Individually"],
-  },
-  {
-    id: 3,
-    question: "Are you comfortable taking risks?",
-    options: ["Yes", "No"],
-  },
-  {
-    id: 4,
-    question: "Do you like exploring new technologies?",
-    options: ["Yes", "No"],
-  },
-  {
-    id: 5,
-    question: "Do you manage your time effectively?",
-    options: ["Yes", "No"],
-  },
-];
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 export default function PsychometricTest() {
+  const [questions, setQuestions] = useState([]);
   const [startTest, setStartTest] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState([]);
   const [showResult, setShowResult] = useState(false);
+  const [resultData, setResultData] = useState(null);
+
+  // Fetch questions from backend on component mount
+  useEffect(() => {
+    const fetchQuestions = async () => {
+      try {
+        const token = localStorage.getItem("token"); // JWT from login
+        const { data } = await axios.get(
+          "http://localhost:5000/api/psychometric/questions",
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+        setQuestions(data);
+      } catch (err) {
+        console.error("Error fetching questions:", err.response?.data || err.message);
+      }
+    };
+    fetchQuestions();
+  }, []);
 
   const handleStartTest = () => setStartTest(true);
 
   const handleAnswer = (answer) => {
     const newAnswers = [...answers];
-    newAnswers[currentQuestion] = answer;
+    newAnswers[currentQuestion] = { questionId: questions[currentQuestion]._id, answer };
     setAnswers(newAnswers);
 
     if (currentQuestion < questions.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
     } else {
+      handleSubmitAnswers(newAnswers);
+    }
+  };
+
+  // Submit answers to backend
+  const handleSubmitAnswers = async (answers) => {
+    try {
+      const token = localStorage.getItem("token");
+      const { data } = await axios.post(
+        "http://localhost:5000/api/psychometric/submit",
+        { answers },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      setResultData(data);
       setShowResult(true);
+    } catch (err) {
+      console.error("Error submitting answers:", err.response?.data || err.message);
+      alert("Failed to submit test. Try again.");
     }
   };
 
@@ -53,9 +62,10 @@ export default function PsychometricTest() {
     setCurrentQuestion(0);
     setAnswers([]);
     setShowResult(false);
+    setResultData(null);
   };
 
-  const progressPercent = ((currentQuestion + 1) / questions.length) * 100;
+  const progressPercent = questions.length ? ((currentQuestion + 1) / questions.length) * 100 : 0;
 
   return (
     <div className="max-w-4xl p-6 mx-auto mt-10">
@@ -76,7 +86,7 @@ export default function PsychometricTest() {
         </div>
       )}
 
-      {startTest && !showResult && (
+      {startTest && !showResult && questions.length > 0 && (
         <div className="p-8 bg-white shadow-xl rounded-2xl animate-fade-in">
           <h2 className="mb-4 text-2xl font-bold text-gray-800">
             Question {currentQuestion + 1} of {questions.length}
@@ -104,17 +114,19 @@ export default function PsychometricTest() {
         </div>
       )}
 
-      {showResult && (
+      {showResult && resultData && (
         <div className="p-8 text-center text-white shadow-xl bg-gradient-to-r from-purple-700 via-pink-600 to-indigo-500 rounded-2xl animate-fade-in">
           <h2 className="mb-6 text-3xl font-bold drop-shadow-lg">Your Test Results</h2>
           <p className="mb-4 text-lg">
-            You have completed the psychometric test! Here's a quick overview of your answers:
+            You have completed the psychometric test! Here's your career suggestion:
           </p>
           <ul className="max-w-md mx-auto mb-6 text-left">
-            {questions.map((q, idx) => (
-              <li key={q.id} className="mb-2">
-                <strong>Q{q.id}:</strong> {q.question} <br /> 
-                <span className="text-yellow-300">Your Answer: {answers[idx]}</span>
+            {resultData.recommendations.map((rec, idx) => (
+              <li key={idx} className="mb-2">
+                <strong>Course:</strong> {rec.courseName} <br />
+                <strong>Degree:</strong> {rec.degree} <br />
+                <strong>College:</strong> {rec.college} <br />
+                <strong>Field:</strong> {rec.careerField}
               </li>
             ))}
           </ul>
