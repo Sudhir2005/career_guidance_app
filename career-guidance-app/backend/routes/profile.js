@@ -1,29 +1,33 @@
 const express = require("express");
 const router = express.Router();
-const Profile = require("../models/Profile");
+const User = require("../models/User"); // Ensure the path is correct
 
-// Save/Update profile
-router.post("/save", async (req, res) => {
+// Update profile
+router.post("/update", async (req, res) => {
   try {
-    const { userId, educationLevel, skills, interests } = req.body;
-    const profile = await Profile.findOneAndUpdate(
-      { userId },
-      { educationLevel, skills, interests },
-      { new: true, upsert: true }
-    );
-    res.json({ message: "✅ Profile saved/updated!", profile });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
+    const { userId, name, email, career, dob, bio, imageData } = req.body;
 
-// Get profile
-router.get("/:userId", async (req, res) => {
-  try {
-    const profile = await Profile.findOne({ userId: req.params.userId });
+    if (!userId) return res.status(400).json({ error: "userId is required" });
+
+    const updateFields = {};
+
+    if (name) updateFields.name = name;
+    if (email) updateFields.email = email;
+    if (career) updateFields.career = career;
+    if (dob) updateFields.dob = dob;
+    if (bio) updateFields.bio = bio;
+    if (imageData) updateFields.imageUrl = imageData; // store as imageUrl or imageData
+
+    const profile = await User.findByIdAndUpdate(userId, updateFields, {
+      new: true,
+    });
+
+    if (!profile) return res.status(404).json({ error: "User not found" });
+
     res.json(profile);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error("Profile Update Error:", err);
+    res.status(500).json({ error: "Server Error" });
   }
 });
 
