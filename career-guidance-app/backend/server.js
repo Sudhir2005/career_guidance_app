@@ -27,12 +27,6 @@ app.get("/", (req, res) => {
   res.redirect("/login"); // frontend login page
 });
 
-// (Optional) Serve frontend React build if deployed
-app.use(express.static(path.join(__dirname, "client/build")));
-// ✅ Safer fallback
-app.use((req, res) => {
-  res.sendFile(path.join(__dirname, "client/build", "index.html"));
-});
 
 
 // Start Server

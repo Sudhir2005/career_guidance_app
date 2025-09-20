@@ -12,7 +12,7 @@ import {
   FaSignOutAlt,
 } from "react-icons/fa";
 
-export default function Navbar({ sidebarUserUpdater }) { // <-- add prop to allow live updates
+export default function Navbar({ sidebarUserUpdater }) {
   const location = useLocation();
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -34,6 +34,7 @@ export default function Navbar({ sidebarUserUpdater }) { // <-- add prop to allo
     navigate("/login");
   };
 
+  // ✅ Fetch profile with Axios
   useEffect(() => {
     const fetchProfile = async () => {
       try {
@@ -41,16 +42,17 @@ export default function Navbar({ sidebarUserUpdater }) { // <-- add prop to allo
         if (!token) return;
 
         const res = await axios.get("http://localhost:5000/api/profile/me", {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         });
 
         setUser({
-          name: res.data.name,
-          career: res.data.career,
-          imageUrl: res.data.imageUrl || res.data.imageData,
+          name: res.data.name || "",
+          career: res.data.career || "",
+          imageUrl: res.data.imageUrl || res.data.imageData || "",
         });
 
-        // Provide updater function to ProfileSetup via prop
         if (sidebarUserUpdater) sidebarUserUpdater(setUser);
       } catch (err) {
         console.error("Error fetching profile:", err);
@@ -63,11 +65,7 @@ export default function Navbar({ sidebarUserUpdater }) { // <-- add prop to allo
   // Close sidebar if clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (
-        sidebarOpen &&
-        sidebarRef.current &&
-        !sidebarRef.current.contains(event.target)
-      ) {
+      if (sidebarOpen && sidebarRef.current && !sidebarRef.current.contains(event.target)) {
         setSidebarOpen(false);
       }
     };
@@ -83,7 +81,6 @@ export default function Navbar({ sidebarUserUpdater }) { // <-- add prop to allo
           Career Guide
         </h1>
 
-        {/* Sidebar Toggle */}
         <button
           className="p-2 text-gray-800 transition-transform duration-300 rounded-full shadow-lg bg-white/70 hover:text-indigo-600 hover:scale-110 md:hidden"
           onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -93,9 +90,7 @@ export default function Navbar({ sidebarUserUpdater }) { // <-- add prop to allo
       </div>
 
       {/* Overlay */}
-      {sidebarOpen && (
-        <div className="fixed inset-0 z-30 bg-black/20 md:hidden"></div>
-      )}
+      {sidebarOpen && <div className="fixed inset-0 z-30 bg-black/20 md:hidden"></div>}
 
       {/* Sidebar */}
       <aside
@@ -114,12 +109,8 @@ export default function Navbar({ sidebarUserUpdater }) { // <-- add prop to allo
             alt="Profile"
             className="w-24 h-24 border-4 border-pink-500 rounded-full shadow-lg"
           />
-          <h2 className="mt-3 text-lg font-bold tracking-wide">
-            {user.name || "Loading..."}
-          </h2>
-          <p className="text-sm italic text-gray-300">
-            {user.career || "Fetching career..."}
-          </p>
+          <h2 className="mt-3 text-lg font-bold tracking-wide">{user.name || "Loading..."}</h2>
+          <p className="text-sm italic text-gray-300">{user.career || "Fetching career..."}</p>
         </div>
 
         {/* Nav Links */}
